@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Chúc mừng sinh nhật Đỗ Lương Đào Nam</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="greeting-wrap" id="greetingWrap">
+        <h1 class="greeting">Xin chào Đỗ Lương Đào Nam</h1>
+    </div>
+
+    <!-- Celebration section (hidden until greeting is pulled up) -->
+    <div id="celebration" class="celebration" aria-hidden="true">
+        <div class="celebration-inner">
+            <h1 class="birthday-title">Chúc Mừng Sinh Nhật</h1>
+            <div class="cake-container">
+                <canvas id="cakeCanvas" width="680" height="580"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Happy birthday track (played on reveal) -->
+    <audio id="happyAudio" preload="auto">
+        <source src="happy-birthday-celebration-happy-birthday-to-you-363137.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+    <script>
+        (function () {
+            const greetingWrap = document.getElementById('greetingWrap');
+            const celebration = document.getElementById('celebration');
+            const happyAudio = document.getElementById('happyAudio');
+            let revealed = false;
+
+            function revealCelebration() {
+                if (revealed) return; revealed = true;
+                // stop any generic slide click handler from script.js
+                try { if (typeof nextSlide === 'function') document.removeEventListener('click', nextSlide); } catch (e) { }
+
+                // animate greeting up and show celebration
+                greetingWrap.classList.add('animate-up');
+                celebration.setAttribute('aria-hidden', 'false');
+                setTimeout(() => celebration.classList.add('show'), 280);
+
+                // play audio and start canvas effects (if available)
+                try { if (happyAudio) { happyAudio.currentTime = 0; happyAudio.play().catch(() => { }); } } catch (e) { }
+                try { if (typeof spawnConfetti === 'function') spawnConfetti(); } catch (e) { }
+                try { if (typeof startCakeAnimation === 'function') startCakeAnimation(); } catch (e) { }
+                try { if (typeof startFireworks === 'function') startFireworks(8000, 400); } catch (e) { }
+            }
+
+            // click anywhere to reveal
+            document.addEventListener('click', function (e) { revealCelebration(); });
+            // also keyboard Enter/Space
+            document.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealCelebration(); } });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,66 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Secret</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Biểu Tối Ưu</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="greeting-wrap" id="greetingWrap">
-        <h1 class="greeting">Xin chào Đỗ Lương Đào Nam</h1>
+
+    <div id="calendar-container">
     </div>
 
-    <!-- Celebration section (hidden until greeting is pulled up) -->
-    <div id="celebration" class="celebration" aria-hidden="true">
-        <div class="celebration-inner">
-            <h1 class="birthday-title">Chúc Mừng Sinh Nhật</h1>
-            <div class="cake-container">
-                <canvas id="cakeCanvas" width="680" height="580"></canvas>
-            </div>
-        </div>
-    </div>
+    <script src="model.js"></script>
+    <script src="view.js"></script>
+    <script src="controller.js"></script>
 
-    <canvas id="confettiCanvas"></canvas>
-
-    <!-- Happy birthday track (played on reveal) -->
-    <audio id="happyAudio" preload="auto">
-        <source src="happy-birthday-celebration-happy-birthday-to-you-363137.mp3" type="audio/mpeg">
-    </audio>
-
-    <script src="script.js"></script>
-    <script>
-        (function () {
-            const greetingWrap = document.getElementById('greetingWrap');
-            const celebration = document.getElementById('celebration');
-            const happyAudio = document.getElementById('happyAudio');
-            let revealed = false;
-
-            function revealCelebration() {
-                if (revealed) return; revealed = true;
-                // stop any generic slide click handler from script.js
-                try { if (typeof nextSlide === 'function') document.removeEventListener('click', nextSlide); } catch (e) { }
-
-                // animate greeting up and show celebration
-                greetingWrap.classList.add('animate-up');
-                celebration.setAttribute('aria-hidden', 'false');
-                setTimeout(() => celebration.classList.add('show'), 280);
-
-                // play audio and start canvas effects (if available)
-                try { if (happyAudio) { happyAudio.currentTime = 0; happyAudio.play().catch(() => { }); } } catch (e) { }
-                try { if (typeof spawnConfetti === 'function') spawnConfetti(); } catch (e) { }
-                try { if (typeof startCakeAnimation === 'function') startCakeAnimation(); } catch (e) { }
-                try { if (typeof startFireworks === 'function') startFireworks(8000, 400); } catch (e) { }
-            }
-
-            // click anywhere to reveal
-            document.addEventListener('click', function (e) { revealCelebration(); });
-            // also keyboard Enter/Space
-            document.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealCelebration(); } });
-        })();
-    </script>
 </body>
 
 </html>
+<!-- 
+STT,Môn Học,Giảng Viên,MÃ LỚP CẦN CHỌN
+1,Lập trình trên Windows,Huỳnh Nguyễn Thành Luân,D24CNTT02
+2,Lập trình Web,Trần Bá Minh Sơn,D24CNTT01
+3,Cấu trúc dữ liệu & GT,Vũ Văn Nam,D24CNTT01
+4,Toán rời rạc,Lê Thị Thu,D24CNTT03
+
+Lập trình trên Windows (3+0)
+Thứ 3,từ 7:00 đến 11:30,Ph I1.403,GV Huỳnh Nguyễn Thành Luân,31/03/26 đến 21/04/26
+Thứ 3,từ 7:00 đến 11:30,Ph I1.403,GV Huỳnh Nguyễn Thành Luân,28/04/26
+Thứ 3,từ 7:00 đến 11:30,Ph I1.403,GV Huỳnh Nguyễn Thành Luân,05/05/26 đến 12/05/26
+Thứ 5,từ 7:00 đến 11:30,Ph I1.403,GV Huỳnh Nguyễn Thành Luân,07/05/26
+Thứ 5,từ 7:00 đến 11:30,Ph I1.403,GV Huỳnh Nguyễn Thành Luân,14/05/26
+Thực hành lập trình trên Windows (0+1)
+Thứ 4,từ 12:30 đến 17:00,Ph I2.305 (PM16),GV Huỳnh Nguyễn Thành Luân,01/04/26 đến 22/04/26
+Thứ 4,từ 12:30 đến 17:00,Ph I2.305 (PM16),GV Huỳnh Nguyễn Thành Luân,06/05/26 đến 13/05/26
+Lập trình Web (2+0)
+Thứ 6,từ 7:00 đến 11:30,Ph I3.106,GV Trần Bá Minh Sơn,09/01/26 đến 30/01/26
+Thứ 6,từ 7:00 đến 11:30,Ph I3.106,GV Trần Bá Minh Sơn,06/03/26 đến 13/03/26
+Thực hành lập trình Web (0+2)
+Thứ 2,từ 12:30 đến 17:00,Ph I2.303 (PM14),GV Trần Bá Minh Sơn,19/01/26
+Thứ 2,từ 12:30 đến 17:00,Ph I2.303 (PM14),GV Trần Bá Minh Sơn,26/01/26
+Thứ 2,từ 12:30 đến 17:00,Ph I2.303 (PM14),GV Trần Bá Minh Sơn,23/02/26
+Thứ 2,từ 12:30 đến 17:00,Ph I2.303 (PM14),GV Trần Bá Minh Sơn,02/03/26
+Thứ 2,từ 12:30 đến 17:00,Ph I2.303 (PM14),GV Trần Bá Minh Sơn,09/03/26
+Thứ 2,từ 12:30 đến 17:00,Ph C.203 (PM07),GV Trần Bá Minh Sơn,16/03/26
+Thứ 2,từ 12:30 đến 17:00,Ph I2.303 (PM14),GV Trần Bá Minh Sơn,30/03/26
+Thứ 2,từ 12:30 đến 17:00,Ph I2.303 (PM14),GV Trần Bá Minh Sơn,06/04/26
+Thứ 2,từ 12:30 đến 17:00,Ph I2.303 (PM14),GV Trần Bá Minh Sơn,13/04/26
+Thứ 2,từ 12:30 đến 17:00,Ph C.102 (PM02),GV Trần Bá Minh Sơn,20/04/26
+Thứ 2,từ 12:30 đến 17:00,Ph C.203 (PM07),GV Trần Bá Minh Sơn,04/05/26
+Cấu trúc dữ liệu và giải thuật (3+0)
+Thứ 3,từ 12:30 đến 17:00,Ph I3.101,GV Vũ Văn Nam,06/01/26
+Thứ 3,từ 12:30 đến 17:00,Ph I3.101,GV Vũ Văn Nam,13/01/26
+Thứ 3,từ 12:30 đến 17:00,Ph I3.301,GV Vũ Văn Nam,20/01/26
+Thứ 3,từ 12:30 đến 17:00,Ph I3.301,GV Vũ Văn Nam,27/01/26
+Thứ 3,từ 12:30 đến 17:00,Ph I1.403,GV Vũ Văn Nam,03/02/26
+Thứ 3,từ 12:30 đến 17:00,Ph I1.403,GV Vũ Văn Nam,24/02/26
+Thứ 3,từ 12:30 đến 17:00,Ph I1.403,GV Vũ Văn Nam,03/03/26
+Thứ 3,từ 12:30 đến 17:00,Ph I1.403,GV Vũ Văn Nam,10/03/26
+Thứ 3,từ 12:30 đến 17:00,Ph I1.403,GV Vũ Văn Nam,17/03/26
+Thực hành Cấu trúc dữ liệu và giải thuật (0+1)
+Thứ 3,từ 7:00 đến 11:30,Ph C.201 (PM05),GV Vũ Văn Nam,20/01/26 đến 27/01/26
+Thứ 3,từ 7:00 đến 11:30,Ph C.201 (PM05),GV Vũ Văn Nam,24/02/26 đến 17/03/26
+Toán rời rạc (3+0)
+Thứ 4,từ 7:00 đến 11:30,Ph A4.111,GV Lê Thị Thu,01/04/26 đến 22/04/26
+Thứ 4,từ 7:00 đến 11:30,Ph A4.111,GV Lê Thị Thu,06/05/26 đến 13/05/26
+Thứ 5,từ 12:30 đến 17:00,Ph A4.111,GV Lê Thị Thu,09/04/26
+Thứ 5,từ 12:30 đến 17:00,Ph A4.111,GV Lê Thị Thu,23/04/26
+Thứ 5,từ 12:30 đến 17:00,Ph A4.111,GV Lê Thị Thu,07/05/26 -->
